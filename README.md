@@ -1,4 +1,4 @@
-# MagpieTutor
+# Kam Werks Card Reader
 <a href="https://discord.com/oauth2/authorize?client_id=1215066493449150514">
         <img src="https://img.shields.io/badge/Invite_the_Bot-blue"
             alt="Invite the Bot">
