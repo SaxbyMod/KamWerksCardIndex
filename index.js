@@ -130,7 +130,7 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: " ({set})", type: "set" },
+            { text: " ({set}) ", type: "set" },
             { text: ":conductive:", type: "con", condition: "card.conduit" },
             { text: ":rare:", type: "con", condition: "card.rare" },
             { text: ":unsacable:", type: "con", condition: "card.nosac" },
@@ -159,7 +159,7 @@ const SetFormatList = {
                         type: "sub",
                     },
                     { text: "\n**Mox Cost**: {mox_cost}", type: "mox" },
-                    { text: "\n\n{health}", type: "stat" },
+                    { text: "\n{health}", type: "stat" },
                 ],
             },
             sigil: {
@@ -187,14 +187,10 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: " ({set})", type: "set" },
+            { text: " ({set}) ", type: "set" },
             { text: ":conductive:", type: "con", condition: "card.conduit" },
             { text: ":unsacable:", type: "con", condition: "card.unsacable" },
-            {
-                text: ":unhammerable:",
-                type: "con",
-                condition: "card.unhammerable",
-            },
+            { text: ":unhammerable:", type: "con", condition: "card.unhammerable" },
             { text: ":banned:", type: "con", condition: "card.banned" },
         ],
         body: {
@@ -252,7 +248,7 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: " ({set})", type: "set" },
+            { text: " ({set}) ", type: "set" },
         ],
         body: {
             general: {
@@ -279,7 +275,7 @@ const SetFormatList = {
                         text: "\n**Shattered Mox Cost**: {shattered}",
                         type: "mox",
                     },
-                    { text: "\n\n{health}", type: "stat" },
+                    { text: "\n{health}", type: "stat" },
                 ],
             },
             sigil: {
@@ -307,7 +303,7 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: "({set})", type: "set" },
+            { text: "({set}) ", type: "set" },
         ],
         body: {
             general: {
@@ -358,7 +354,7 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: "({set})", type: "set" },
+            { text: "({set}) ", type: "set" },
             { text: ":conductive:", type: "con", condition: "card.conduit" },
             { text: ":rare:", type: "con", condition: "card.rare" },
             { text: ":unsacable:", type: "con", condition: "card.unsacable" },
@@ -399,7 +395,7 @@ const SetFormatList = {
                         type: "sub",
                     },
                     { text: "\n**Mox Cost**: {mox_cost}", type: "mox" },
-                    { text: "\n\n{health}", type: "stat" },
+                    { text: "\n{health}", type: "stat" },
                 ],
             },
             sigil: {
@@ -1505,33 +1501,39 @@ function fetchCard(name, setName, noAlter = false, noArt = false) {
         return card
     }
 
-    // change existing card info and custom url
-    if (setName != "augmented") {
-        if (card.name == "Fox") {
-            card.url =
-                "https://cdn.discordapp.com/attachments/1038091526800162826/1069256708783882300/Screenshot_2023-01-30_at_00.31.53.png"
-        } else if (card.name == "Geck") {
-            card.sigils = ["Omni Strike"]
-        } else if (card.name == "Bell Tentacle") {
-            card.atkspecial = "bell"
-        } else if (card.name == "Hand Tentacle") {
-            card.atkspecial = "hand"
-        } else if (card.name == "Ruby Dragon") {
-            card.url =
-                "https://cdn.discordapp.com/attachments/999643351156535296/1082825510888935465/portrait_prism_dragon_gbc.png"
-
-            card.name = "GAY DRAGON"
-            card.description = "Modified portrait by ener"
-        } else if (card.name == "Horse Mage") {
-            card.description = `Not make by ener :trolled:`
-        } else if (card.name == "The Moon") {
-            card.sigils = ["Omni Strike", "Tidal Lock", "Made of Stone", "Mighty Leap"]
-        } else if (card.name == "Ouroboros") {
-            card.description = "Ouroboros is the source of all evil - 107"
-        } else if (card.name == "Blue Mage") {
-            card.url = "https://cdn.discordapp.com/attachments/1013090988354457671/1130690799152148571/11111.jpg"
+        // change existing card info and custom url
+        if (setName != "augmented" && setName != "custom tcg inscryption" && setName != "desafts mod (cti)") {
+            if (card.name == "Fox") {
+                card.url =
+                    "https://cdn.discordapp.com/attachments/1038091526800162826/1069256708783882300/Screenshot_2023-01-30_at_00.31.53.png"
+            } else if (card.name == "Geck") {
+                card.sigils = ["Omni Strike"]
+            } else if (card.name == "Bell Tentacle") {
+                card.atkspecial = "bell"
+            } else if (card.name == "Hand Tentacle") {
+                card.atkspecial = "hand"
+            } else if (card.name == "Ruby Dragon") {
+                card.url =
+                    "https://cdn.discordapp.com/attachments/999643351156535296/1082825510888935465/portrait_prism_dragon_gbc.png"
+    
+                card.name = "GAY DRAGON"
+                card.description = "Modified portrait by ener"
+            } else if (card.name == "Horse Mage") {
+                card.description = `Not make by ener :trolled:`
+            } else if (card.name == "The Moon") {
+                card.sigils = [
+                    "Omni Strike",
+                    "Tidal Lock",
+                    "Made of Stone",
+                    "Mighty Leap",
+                ]
+            } else if (card.name == "Ouroboros") {
+                card.description = "Ouroboros is the source of all evil - 107"
+            } else if (card.name == "Blue Mage") {
+                card.url =
+                    "https://cdn.discordapp.com/attachments/1013090988354457671/1130690799152148571/11111.jpg"
+            }
         }
-    }
 
     if (JSON.stringify(original) != JSON.stringify(card)) {
         card.footnote =

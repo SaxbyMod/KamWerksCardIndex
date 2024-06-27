@@ -19,10 +19,7 @@ const commands = [
                 .setName("set")
                 .setDescription("Which set do you want to pull card from")
                 .setChoices(
-                    {
-                        name: "Competitive",
-                        value: "competitive",
-                    },
+                    { name: "Competitive", value: "competitive" },
                     { name: "Eternal", value: "eternal" },
                     { name: "Vanilla", value: "vanilla" },
                     { name: "Mr.Egg", value: "mr.egg" },
@@ -46,18 +43,9 @@ const commands = [
         .setDescription("Simulate a deck, you can draw card test starting hand, etc")
         .addStringOption((option) =>
             option.setName("set").setDescription("Which set this deck file was made in").addChoices(
-                {
-                    name: "Competitive",
-                    value: "competitive",
-                },
-                {
-                    name: "Eternal",
-                    value: "eternal",
-                },
-                {
-                    name: "Mr.egg",
-                    value: "mr.egg",
-                }
+                { name: "Competitive", value: "competitive", },
+                { name: "Eternal", value: "eternal" },
+                { name: "Mr.egg", value: "mr.egg" }
             )
         )
         .addAttachmentOption((option) =>
@@ -210,18 +198,9 @@ const commands = [
                 .setName("set")
                 .setDescription("Which set this deck file was made in")
                 .addChoices(
-                    {
-                        name: "Competitive",
-                        value: "competitive",
-                    },
-                    {
-                        name: "Eternal",
-                        value: "eternal",
-                    },
-                    {
-                        name: "Mr.egg",
-                        value: "mr.egg",
-                    }
+                    { name: "Competitive", value: "competitive" },
+                    { name: "Eternal", value: "eternal" },
+                    { name: "Mr.egg", value: "mr.egg" }
                 )
                 .setRequired(true)
         )
