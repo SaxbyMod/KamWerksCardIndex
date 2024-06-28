@@ -65,7 +65,11 @@ async function load() {
             card["Sigil 3"] ?? "",
             card["Sigil 4"] ?? "",
         ]
-        cardFormated.sigils = cardFormated.sigils.filter((s) => s !== "")
+        cardFormated.sigils = cardFormated.sigils.filter(s => s !== "")
+
+        if (cardFormated.sigils.length <= 0) {
+            delete cardFormated["sigils"]
+        }
 
         cardFormated.pixport_url = card["Image"]
         DesaftModCTI.cards.push(cardFormated)

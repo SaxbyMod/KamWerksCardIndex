@@ -93,7 +93,7 @@ const portraitCaches = require("./extra/caches.json")
 format.extend(String.prototype, {})
 
 const searchRegex = /([^\s]*?)(\w{3})?\[{2}([^\]]+)\]{2}/g
-const queryRegex = /(-|)(\w+):([^"\s]+|"[^"]+")/g
+const queryRegex = /(-|)(\w+):\s?([^"\s]+|"[^"]+")/g
 
 const matchPercentage = 0.4
 let scream = false
@@ -540,7 +540,7 @@ const SetList = {
             { name: "talk", condition: 'card.tier == "Talking"' },
             { name: "side", condition: 'card.tier == "Side Deck"' },
             { name: "joke", condition: `card.tier == "Common (Joke Card)"` },
-            { name: "banned", condition: `card.temple == "Terrain/Extras"` }
+            { name: "banned", condition: `card.temple == "Terrain/Extras"` },
         ],
     },
     dmc: {
@@ -556,7 +556,7 @@ const SetList = {
             { name: "talk", condition: 'card.tier == "Talking"' },
             { name: "side", condition: 'card.tier == "Side Deck"' },
             { name: "joke", condition: `card.tier == "Common (Joke Card)"` },
-            { name: "banned", condition: `card.temple == "Terrain/Extras"` }
+            { name: "banned", condition: `card.temple == "Terrain/Extras"` },
         ],
     },
 
@@ -1644,6 +1644,10 @@ function genSigilEmbed(sigilName, sigilDescription) {
     return [embed, 1]
 }
 
+function Capitalize(str) {
+    str.toLowerCase().split(" ").map(w => w[0].toUpperCase() + w.substring(1)).join(" ")
+}
+
 function queryCard(string, set, compactDisplay = false) {
     let embed = new EmbedBuilder().setColor(Colors.Purple)
     let possibleMatches = setsData[set.name].cards
@@ -1668,7 +1672,7 @@ function queryCard(string, set, compactDisplay = false) {
         }
     }
     const final = Object.keys(possibleMatches)
-    const result = `**Card that ${searchExplain.join(", ")}**:\n${final
+    const result = `**Card(s) that ${searchExplain.join(", ").replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())}**:\n${final
         .join(", ")
         .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())}`
 
