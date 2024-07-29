@@ -25,7 +25,7 @@ async function load() {
     for (let card of cardsRaw) {
         let cardFormated = {}
         if (Object.keys(card).length == 0) continue
-        cardFormated.name = card["Name"]
+        cardFormated.name = card["Internal Name"]
         cardFormated.temple = card["Temple"]
         cardFormated.tier = card["Rarity"]
         cardFormated.tribes = card["Tribes"]
@@ -76,7 +76,7 @@ async function load() {
     }
 
     for (sigil of sigilRaw) {
-        if (sigil["Description"]) DesaftModCTI.sigils[sigil["Name"]] = sigil["Description"].replaceAll("\n", "")
+        if (sigil["Description"]) DesaftModCTI.sigils[sigil["Internal Name"]] = sigil["Description"].replaceAll("\n", "")
     }
 }
 return DesaftModCTI

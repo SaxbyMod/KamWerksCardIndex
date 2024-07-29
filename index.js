@@ -248,7 +248,6 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: " ({set}) ", type: "set" },
         ],
         body: {
             general: {
@@ -303,7 +302,6 @@ const SetFormatList = {
         },
         title: [
             { text: "{name}", type: "sub" },
-            { text: "({set}) ", type: "set" },
         ],
         body: {
             general: {
