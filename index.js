@@ -266,6 +266,10 @@ const SetFormatList = {
                         type: "sub",
                     },
                     {
+                        text: "\n**Skull Cost**: :{skull}::x_::skull:",
+                        type: "sub",
+                    },
+                    {
                         text: "\n**Energy Cost**: :{energy}::x_::energy:",
                         type: "sub",
                     },
@@ -311,6 +315,7 @@ const SetFormatList = {
 
                     { text: ":{blood}::blood: ", type: "sub" },
                     { text: ":{bone}::bones:", type: "sub" },
+                    { text: ":{skull}::skulls:", type: "sub" },
                     {
                         text: ":{energy}::energy: ",
                         type: "sub",
@@ -466,7 +471,7 @@ const SetList = {
         draftRestriction: DraftRestriction.imf,
     },
     com: {
-        name: "competitive",
+        name: "standard",
         type: "107",
         format: SetFormatList.imf,
         compactFormat: SetFormatList.imfCompact,
@@ -582,6 +587,7 @@ const SetList = {
     "?": { name: "lazy", type: "modifier" },
     $: { name: "exact", type: "modifier" },
     d: { name: "dumb", type: "modifier" },
+    f: { name: "full card", type: "modifier" },
 }
 
 //!SECTION - define the ruleset shit
@@ -629,12 +635,12 @@ infoLog(chalk.magenta.underline.bold("Setup please wait"))
                         setsData[set.name] = json
                     })
             } catch (err) {
-                infoLog(chalk.bgRed(`Set ${set.name} have a json error loading competitive data instead!`))
+                infoLog(chalk.bgRed(`Set ${set.name} have a json error loading standard data instead!`))
                 if (set.name != "eternal") continue
                 console.log(err)
                 scream = true
                 log = err
-                setsData[set.name] = JSON.parse(JSON.stringify(setsData["competitive"]))
+                setsData[set.name] = JSON.parse(JSON.stringify(setsData["standard"]))
             }
         }
         const cardCount = setsData[set.name]
@@ -1167,6 +1173,7 @@ async function messageSearch(message, returnValue = false) {
         let lazy = false
         let exact = false
         let dumb = false
+        let fullCard = false
 
         for (const code of modifierCode) {
             const modifierSet = SetList[code]
@@ -1211,6 +1218,8 @@ async function messageSearch(message, returnValue = false) {
                     exact = true
                 } else if (modifierSet.name == "dumb") {
                     dumb = true
+                } else if (modifierSet.name == "full card") {
+                    fullCard = true
                 }
             }
         }
@@ -1276,7 +1285,7 @@ async function messageSearch(message, returnValue = false) {
                         continue
                     }
                 } else {
-                    card = fetchCard(bestMatch.target, set.name, noAlter, noArt)
+                    card = fetchCard(bestMatch.target, set.name, noAlter, noArt, fullCard)
                 }
             }
 
@@ -1468,7 +1477,7 @@ function genColor(textFormat, card) {
 }
 
 // fetch the card and its url
-function fetchCard(name, setName, noAlter = false, noArt = false) {
+function fetchCard(name, setName, noAlter = false, noArt = false, fullCard = false,) {
     let card
 
     let set = setsData[setName]
@@ -1482,7 +1491,14 @@ function fetchCard(name, setName, noAlter = false, noArt = false) {
     card.set = setName
     if (card.noArt || noArt) {
         card.url = undefined
-    } else if (card.pixport_url) {
+    } else if (card.fullCard == true) {
+        if (set == "augmented") {
+            card.url = `https://github.com/answearingmachine/inscryption-augmented-image-host/tree/main/SNAP/${cardFormated.temple.replaceAll(" ", "%20")}/${cardFormated.tier.replaceAll(" ", "%20")}/${card.name.replaceAll(" ", "%20")}.png`
+        } else if (set == "custom tcg inscryption" || set == "desaft's mod (CTI)") {
+            card.url = `https://github.com/SaxbyMod/NotionAssets/tree/main/Formats/${cardFormated.format.replaceAll(" ", "%20")}/${card.name.replaceAll(" ", "%20")}.png`
+        } 
+    }
+    else if (card.pixport_url) {
         card.url = card.pixport_url
     } else {
         card.url = `https://github.com/107zxz/inscr-onln/raw/main/gfx/pixport/${card.name.replaceAll(" ", "%20")}.png`

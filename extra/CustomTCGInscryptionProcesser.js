@@ -37,7 +37,7 @@ async function load() {
         cardFormated.token = card["Token"]
 
         // Cost Parsing
-        card["Cost"] = card["Cost"].replace("Bones", "Bone").replace("Gems", "Mox").replace("Gem", "Mox").toLowerCase()
+        card["Cost"] = card["Cost"].replace("Bones", "Bone").replace("Gems", "Mox").replace("Gem", "Mox").replace("Skulls", "Skull").toLowerCase()
         for (let cost of card["Cost"].split(", ")) {
             cost = cost.trim().toLowerCase()
             let temp = cost.split(" ")
